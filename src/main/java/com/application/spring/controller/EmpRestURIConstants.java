@@ -10,4 +10,5 @@ public class EmpRestURIConstants {
 	public static final String CREATE_EMP_URL = "/rest/employee/create";
 	public static final String DELETE_EMP_URL = "/rest/employee/delete/{id}";
 	public static final String GET_COMP_EMP_URL = "/rest/employees/{companyId}";
+	public static final String UPDATE_EMP_URL = "/rest/employee/update";
 }

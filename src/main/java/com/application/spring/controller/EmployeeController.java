@@ -89,6 +89,21 @@ public class EmployeeController {
 		comp.setName("Google");
 		comp.setAddress("Address 1");
 		compData.put(comp.getId(), comp);
+		comp = new Company();
+		comp.setId(1);
+		comp.setName("Apple");
+		comp.setAddress("Address 2");
+		compData.put(comp.getId(), comp);
+		comp = new Company();
+		comp.setId(1);
+		comp.setName("IBM");
+		comp.setAddress("Address 3");
+		compData.put(comp.getId(), comp);
+		comp = new Company();
+		comp.setId(1);
+		comp.setName("Stark Enterprises");
+		comp.setAddress("Address 1");
+		compData.put(comp.getId(), comp);
 		
 		Set<Integer> compIdKeys = compData.keySet();
 		for(Integer i : compIdKeys){
@@ -175,6 +190,36 @@ public class EmployeeController {
 		empData.put(emp.getId(), emp);
 	    return emp;
 	}
+	
+	@RequestMapping(value = EmpRestURIConstants.UPDATE_EMP_URL, method = RequestMethod.POST)
+	public @ResponseBody Employee updateEmployee(@RequestBody String json) {
+		// this is done like this because there was a problem on my particular machine with quotes in JSON when creating objects
+		String name = "";
+		String address = "";
+	    Scanner sc = new Scanner(json);
+	    sc.useDelimiter("&");
+	    String input = sc.next();
+	    Scanner innerSc = new Scanner(input);
+	    innerSc.useDelimiter("=");
+	    innerSc.next();
+	    int id = Integer.parseInt(innerSc.next());
+	    Employee emp = empData.get(id);
+	    innerSc = new Scanner(sc.next());
+	    innerSc.useDelimiter("=");
+	    innerSc.next();
+	    name = innerSc.next();
+	    innerSc = new Scanner(sc.next());
+	    innerSc.useDelimiter("=");
+	    innerSc.next();
+	    address = innerSc.next();
+	    address = address.replace("+", " ");
+		emp.setName(name);
+		emp.setAddress(address);
+		empData.put(emp.getId(), emp);
+	    return emp;
+	}
+
+	
 	//public @ResponseBody List<Employee> createEmployee(@RequestBody Employee e, BindingResult results) {
 	/*@ResponseBody
 	public void createEmployee(HttpServletRequest request) {
