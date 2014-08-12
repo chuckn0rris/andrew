@@ -105,7 +105,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value = EmpRestURIConstants.GET_COMP_EMP_URL, method = RequestMethod.GET)
-	public @ResponseBody List<Employee> getEmployees(@PathVariable("id") int companyId) {
+	public @ResponseBody List<Employee> getEmployees(@PathVariable("companyId") int companyId) {
 		logger.info("Start getEmployee. ID="+companyId);
 		List<Employee> emps = new ArrayList<Employee>();
 		Set<Integer> empIdKeys = empData.keySet();
