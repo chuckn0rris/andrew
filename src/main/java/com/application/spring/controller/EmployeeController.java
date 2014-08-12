@@ -1,6 +1,7 @@
 package com.application.spring.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -103,6 +104,20 @@ public class EmployeeController {
 		return empData.get(empId);
 	}
 	
+	@RequestMapping(value = EmpRestURIConstants.GET_COMP_EMP_URL, method = RequestMethod.GET)
+	public @ResponseBody List<Employee> getEmployees(@PathVariable("id") int companyId) {
+		logger.info("Start getEmployee. ID="+companyId);
+		List<Employee> emps = new ArrayList<Employee>();
+		Set<Integer> empIdKeys = empData.keySet();
+		for(Integer i : empIdKeys){
+			Employee emp = empData.get(i);
+			if(companyId == emp.getCompanyId()) {
+				emps.add(emp);
+			}
+		}		
+		return emps;
+	}
+	
 	@RequestMapping(value = EmpRestURIConstants.GET_ALL_EMP_URL, method = RequestMethod.GET)
 	public @ResponseBody List<Employee> getAllEmployees() {
 		logger.info("Start getAllEmployees.");
@@ -128,8 +143,12 @@ public class EmployeeController {
 	@RequestMapping(value = EmpRestURIConstants.CREATE_EMP_URL, method = RequestMethod.POST)
 	public @ResponseBody Employee createEmployee(@RequestBody String json) {
 		// this is done like this because there was a problem on my particular machine with quotes in JSON when creating objects
-		int id = 0;
-		int companyId = 0;
+		int id = 1;
+		Set<Integer> set = empData.keySet();
+		if(set != null && set.size() > 0) {
+			int idx = Collections.max(empData.keySet());
+			id = idx+1;
+		}				
 		String name = "";
 		String address = "";
 	    Scanner sc = new Scanner(json);
@@ -138,11 +157,7 @@ public class EmployeeController {
 	    Scanner innerSc = new Scanner(input);
 	    innerSc.useDelimiter("=");
 	    innerSc.next();
-	    id = Integer.parseInt(innerSc.next());
-	    innerSc = new Scanner(sc.next());
-	    innerSc.useDelimiter("=");
-	    innerSc.next();
-	    companyId = Integer.parseInt(innerSc.next());
+	    int companyId = Integer.parseInt(innerSc.next());
 	    innerSc = new Scanner(sc.next());
 	    innerSc.useDelimiter("=");
 	    innerSc.next();
