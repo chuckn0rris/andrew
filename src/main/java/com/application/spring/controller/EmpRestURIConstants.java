@@ -8,6 +8,6 @@ public class EmpRestURIConstants {
 	public static final String GET_EMP_URL = "/rest/emp/{id}";
 	public static final String GET_ALL_EMP_URL = "/rest/emps";
 	public static final String CREATE_EMP_URL = "/rest/employee/create";
-	public static final String DELETE_EMP_URL = "/rest/emp/delete/{id}";
+	public static final String DELETE_EMP_URL = "/rest/employee/delete/{id}";
 	public static final String GET_COMP_EMP_URL = "/rest/employees/{companyId}";
 }
