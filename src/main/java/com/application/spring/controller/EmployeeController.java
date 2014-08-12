@@ -78,24 +78,7 @@ public class EmployeeController {
 		return emps;
 	}
 	
-   /* data: [{
-        'id': 1,
-        'name': 'Google',
-        'address': 'Address 1'
-    }, {
-        'id': 2,
-        'name': 'Apple',
-        'address': 'Address 2'
-    }, {
-        'id': 3,
-        'name': 'Samsung',
-        'address': 'Address 3'
-    }, {
-        'id': 4,
-        'name': 'Motorola',
-        'address': 'Address 4'
-    }]*/
-	
+   	
 	@RequestMapping(value = EmpRestURIConstants.GET_ALL_COMPS_URL, method = RequestMethod.GET)
 	public @ResponseBody List<Company> getAllCompanies() {
 		logger.info("Start getAllCompanies");
